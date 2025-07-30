@@ -1,0 +1,46 @@
+# Connection keep alive timeout [default: 75]
+keep_alive: 75
+
+# The socket address to bind [default: 0.0.0.0:3000]
+listen_addresses: '0.0.0.0:3000'
+
+# Set TileJSON URL path prefix. This overrides the default of respecting the X-Rewrite-URL header.
+# Only modifies the JSON (TileJSON) returned, martins' API-URLs remain unchanged. If you need to rewrite URLs, please use a reverse proxy.
+# Must begin with a `/`.
+# Examples: `/`, `/tiles`
+base_path: /tiles
+
+# Number of web server workers
+worker_processes: 8
+
+# Amount of memory (in MB) to use for caching tiles [default: 512, 0 to disable]
+cache_size_mb: 1024
+
+# Enable or disable Martin web UI. At the moment, only allows `enable-for-all` which enables the web UI for all connections. This may be undesirable in a production environment. [default: disable]
+web_ui: enable-for-all
+
+# Publish MBTiles files
+mbtiles:
+  paths:
+    # scan this whole dir, matching all *.mbtiles files
+    - /data/tiles
+  sources:
+    # named source matching source name to a single file
+    java-src1: /data/tiles/java-shortbread-1.0.mbtiles 
+
+sprites:
+  paths:
+    # all SVG files in this dir will be published as a "my_images" sprite source
+    - /data/sprites
+
+
+# Font configuration
+fonts:
+  # A list of *.otf, *.ttf, and *.ttc font files and dirs to search recursively.
+  - /data/fonts
+
+styles:
+   paths:
+     # publish all *.json files in this directory
+     # The name of the file will be used as the style name
+     - /data/styles
