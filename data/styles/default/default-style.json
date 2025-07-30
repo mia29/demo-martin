@@ -1,0 +1,169 @@
+{
+  "version": 8,
+  "name": "Shortbread Style",
+  "sources": {
+    "shortbread": {
+      "type": "vector",
+      "tiles": [
+        "http://localhost:8080/data/shortbread-tiles/{z}/{x}/{y}.pbf"
+      ],
+      "minzoom": 0,
+      "maxzoom": 14
+    }
+  },
+  "glyphs": "/fonts/{fontstack}/{range}",
+  "layers": [
+    {
+      "id": "bg",
+      "type": "background",
+      "paint": { "background-color": "#F2EFE9" }
+    },
+    {
+      "id": "ocean",
+      "type": "fill",
+      "source": "shortbread",
+      "source-layer": "ocean",
+      "paint": { "fill-color": "#AAD3DF" }
+    },
+    {
+      "id": "water_polygons",
+      "type": "fill",
+      "source": "shortbread",
+      "source-layer": "water_polygons",
+      "paint": { "fill-color": "#AAD3DF" }
+    },
+    {
+      "id": "boundaries",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "boundaries",
+      "paint": { "line-color": "#8D618B" }
+    },
+    {
+      "id": "streets",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "streets",
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "kind"],
+          "motorway",
+          "#e66e89",
+          ["trunk", "primary", "secondary"],
+          "#f4c37d",
+          "#ccccca"
+        ]
+      }
+    },
+
+    {
+      "id": "road-motorway",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "streets",
+      "filter": ["==", "class", "motorway"],
+      "paint": {
+        "line-color": "#f44336",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          5, 0.8,
+          10, 1.5,
+          14, 3.5
+        ]
+      },
+      "minzoom": 5
+    },
+    {
+      "id": "road-primary",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "streets",
+      "filter": ["in", "class", "primary", "secondary", "trunk"],
+      "paint": {
+        "line-color": "#ff9800",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          8, 0.6,
+          12, 1.5,
+          14, 2.5
+        ]
+      },
+      "minzoom": 8
+    },
+    {
+      "id": "road-residential",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "streets",
+      "filter": ["in", "class", "tertiary", "residential", "service", "unclassified"],
+      "paint": {
+        "line-color": "#fdd835",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          12, 0.4,
+          14, 1.2,
+          16, 2.0
+        ]
+      },
+      "minzoom": 12
+    },
+    {
+      "id": "road-gang",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "streets",
+      "filter": ["in", "class", "footway", "path", "living_street"],
+      "paint": {
+        "line-color": "#8d6e63",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          14, 0.3,
+          16, 0.8
+        ],
+        "line-dasharray": [1, 1]
+      },
+      "minzoom": 14
+    },
+    {
+      "id": "road-track",
+      "type": "line",
+      "source": "shortbread",
+      "source-layer": "streets",
+      "filter": ["==", "class", "track"],
+      "paint": {
+        "line-color": "#9e9e9e",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          13, 0.3,
+          16, 0.8
+        ],
+        "line-dasharray": [2, 2]
+      },
+      "minzoom": 13
+    },
+    {
+      "id": "places",
+      "type": "symbol",
+      "source": "shortbread",
+      "source-layer": "place_labels",
+      "layout": {
+        "text-field": ["get", "name"],
+        "text-font": ["Open Sans Semibold"],
+        "text-size": 16
+      },
+      "paint": {
+        "text-halo-width": 1,
+        "text-halo-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "buildings",
+      "type": "fill",
+      "source": "shortbread",
+      "source-layer": "buildings",
+      "paint": { "fill-color": "#D9D0C9" }
+    }
+  ]
+}
